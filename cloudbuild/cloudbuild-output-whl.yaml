@@ -1,0 +1,8 @@
+substitutions:
+  _PREFIX: ''
+
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['run', '-v', '/workspace:/out', 'colabtools', 'cp', '/colabtools/dist/google_colab-1.0.0-py2.py3-none-any.whl', '/out']
+- name: 'gcr.io/cloud-builders/gsutil'
+  args: ['cp', '/workspace/google_colab-1.0.0-py2.py3-none-any.whl', 'gs://sandbox-colabtools/${COMMIT_SHA}${_PREFIX}/']
